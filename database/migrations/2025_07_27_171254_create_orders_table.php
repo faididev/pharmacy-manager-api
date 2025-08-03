@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('status')->default('panding');
-            $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade');
-            $table->date('order_date')->nullable();
-            $table->decimal('total_amount', 10, 2)->default(0);
+            $table->foreignId('customer_id')
+                  ->constrained('customers')
+                  ->onDelete('cascade');
+            $table->date('order_date')->nullable(); // Date when the order was placed
+            $table->decimal('total_amount', 10, 2)->default(0); // Total amount for the order
+            $table->string('status')->default('pending'); //
             $table->timestamps();
         });
     }

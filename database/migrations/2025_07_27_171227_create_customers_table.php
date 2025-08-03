@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->integer('loyalty_points')->default(0);
+            $table->foreignId('user_id')
+                  ->constrained('users')
+                  ->onDelete('cascade');
+            $table->string('loyalty_points')->default(0); // Loyalty points for the customer
             $table->timestamps();
         });
     }

@@ -13,10 +13,14 @@ return new class extends Migration
     {
         Schema::create('order_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_id')->constrained('orders')->onDelete('cascade');
-            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
-            $table->integer('quantity')->default(1);
-            $table->decimal('price', 10, 2);
+            $table->foreignId('order_id')
+                  ->constrained('orders')
+                  ->onDelete('cascade');
+            $table->foreignId('product_id')
+                  ->constrained('products')
+                  ->onDelete('cascade');
+            $table->integer('quantity')->default(1); // Quantity of the product in the order item
+            $table->decimal('price', 10, 2); // Price of      
             $table->timestamps();
         });
     }
