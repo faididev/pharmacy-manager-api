@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7cb8e1f5aba12c0d9b0a26675a2faf43",
+    "content-hash": "80b83b5478e17dc7a646c55ee8b28f76",
     "packages": [
         {
             "name": "brick/math",
@@ -6492,6 +6492,56 @@
                 }
             ],
             "time": "2025-06-03T06:57:57+00:00"
+        },
+        {
+            "name": "yasin_tgh/laravel-postman",
+            "version": "v1.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yasintqvi/laravel-postman.git",
+                "reference": "8db7bbb0a21280bc9f9c88d289f68fcfe41cb39b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yasintqvi/laravel-postman/zipball/8db7bbb0a21280bc9f9c88d289f68fcfe41cb39b",
+                "reference": "8db7bbb0a21280bc9f9c88d289f68fcfe41cb39b",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^10.0|^11.0|^12.0",
+                "php": "^8.1",
+                "symfony/console": "^6.0|^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "logo": "https://i.imgur.com/wt0yMs7.png",
+                    "providers": [
+                        "YasinTgh\\LaravelPostman\\PostmanServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "YasinTgh\\LaravelPostman\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "yasin taghavi",
+                    "email": "mrtqvi@yahoo.com"
+                }
+            ],
+            "description": "A powerful package to automatically generate Postman collections from your Laravel routes with intelligent organization and rich documentation capabilities.",
+            "support": {
+                "issues": "https://github.com/yasintqvi/laravel-postman/issues",
+                "source": "https://github.com/yasintqvi/laravel-postman/tree/v1.3.1"
+            },
+            "time": "2025-08-01T08:25:42+00:00"
         }
     ],
     "aliases": [],

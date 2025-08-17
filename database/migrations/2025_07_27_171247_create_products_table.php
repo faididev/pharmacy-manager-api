@@ -13,19 +13,22 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->index();              // Helps in searches
+            $table->uuid('uuid')->unique()->index();
+            $table->string('sku')->unique()->index();
+            $table->string('name')->index();          
             $table->text('description')->nullable();
             $table->decimal('price', 10, 2);
             $table->integer('quantity')->default(0);
-            $table->decimal('total', 10, 2)->default(0);  // Consider computing this in code
+            $table->decimal('total', 10, 2)->default(0);
             $table->date('manufacture_date')->nullable();
             $table->date('expiry_date')->nullable();
 
             $table->foreignId('category_id')
                   ->constrained('categories')
-                  ->onDelete('cascade'); // or setNull(), make nullable if so
+                  ->onDelete('cascade');
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
