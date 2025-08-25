@@ -3,11 +3,11 @@
 namespace App\DTOs;
 
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 class UpsertProductDto
 {
     public function __construct(
-        public readonly string $sku,
         public readonly string $name,
         public readonly ?string $description = null,
         public readonly float $price,
@@ -18,10 +18,9 @@ class UpsertProductDto
         public readonly int $categoryId,
     ) {}
 
-    public static function fromArray(array $data): self
+    public static function fromArray(array $data)
     {
         return new self(
-            sku: $data['sku'],
             name: $data['name'],
             description: $data['description'] ?? null,
             price: $data['price'],

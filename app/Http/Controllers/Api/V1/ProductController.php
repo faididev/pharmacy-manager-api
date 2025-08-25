@@ -2,12 +2,11 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\DTOs\UpsertProductDto;
-use App\Http\Requests\Api\V1\StoreProductRequest;
 use App\Http\Requests\Api\V1\UpdateProductRequest;
 use App\Http\Resources\Api\V1\ProductsResource;
 use App\Models\Product;
 use App\Actions\UpsertProductAction;
-
+use App\Http\Requests\Api\V1\UpsertProductRequest;
 
 class ProductController
 {
@@ -26,19 +25,20 @@ class ProductController
         return new ProductsResource($product);
     }
 
-    public function store(StoreProductRequest $request)
+    public function store(UpsertProductRequest $request)
     {
         $dto = UpsertProductDto::fromArray($request->validated());
+
         $product = $this->upsertProductAction->handle($dto);
+
         return new ProductsResource($product);
     }
 
     public function update(UpdateProductRequest $request, Product $product)
     {
-
         $dto = UpsertProductDto::fromArray($request->validated());
 
-        $product = $this->upsertProductAction->handle( $dto);
+        $product = $this->upsertProductAction->handle( $dto, $product->sku);
 
         return new ProductsResource($product);
         

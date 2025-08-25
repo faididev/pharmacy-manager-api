@@ -1,16 +1,17 @@
-<?php 
+<?php
 
 namespace App\Actions;
+
 use App\DTOs\UpsertProductDto;
 use App\Models\Product;
 
 class UpsertProductAction
 {
-    public function handle(UpsertProductDto $dto): Product
+    public function handle(UpsertProductDto $dto, ?string $sku = null): Product
     {
-
-        Product::upsert([
-                'sku'              => $dto->sku,
+        return Product::updateOrCreate(
+            ['sku' => $sku],
+            [
                 'name'             => $dto->name,
                 'description'      => $dto->description,
                 'price'            => $dto->price,
@@ -19,10 +20,7 @@ class UpsertProductAction
                 'manufacture_date' => $dto->manufactureDate?->toDateString(),
                 'expiry_date'      => $dto->expiryDate?->toDateString(),
                 'category_id'      => $dto->categoryId,
-            ], ['sku'], ['name', 'description', 'price', 'quantity', 'total', 'manufacture_date', 'expiry_date', 'category_id'
-        ]);
-
-        return Product::where('sku', trim($dto->sku))->firstOrFail();   
-
+            ]
+        );
     }
 }
