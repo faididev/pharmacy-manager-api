@@ -1,10 +1,11 @@
-<?php 
+<?php
 
 namespace App\Http\Resources\Api\V1;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProductsResource extends JsonResource {
+class ProductsResource extends JsonResource
+{
 
     /**
      * Transform the resource into an array.
@@ -26,13 +27,28 @@ class ProductsResource extends JsonResource {
                 'expiry_date' => $this->expiry_date,
                 'category_id' => $this->category_id,
                 'price' => $this->price,
-                'createdAt' => $this->created_at,
-                'updatedAt' => $this->updated_at,
+                $this->mergeWhen(
+                    $request->routeIs('products.*'),
+                    [
+                        'createdAt' => $this->created_at,
+                        'updatedAt' => $this->updated_at,
+                    ]
+                )
             ],
-            'includes' => ['category' => $this->whenLoaded('category')],
-            // 'links' => [
-            //     'self' => route('products.show')
-            // ]
+            'relationships' => [
+                'category' => [
+                    'data' => [
+                        'type' => 'category',
+                        'id' => $this->category_id
+                    ],
+                    'links' => [
+                        'self' => route('categories.show', ['category' => $this->category_id])
+                    ]
+                ]
+            ],
+            'includes' => [
+                'category' => new CategoryResource($this->whenLoaded('category'))
+            ]
         ];
     }
 }

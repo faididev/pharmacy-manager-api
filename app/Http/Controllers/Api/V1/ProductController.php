@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 namespace App\Http\Controllers\Api\V1;
 
 use App\DTOs\UpsertProductDto;
@@ -7,18 +8,33 @@ use App\Http\Resources\Api\V1\ProductsResource;
 use App\Models\Product;
 use App\Actions\UpsertProductAction;
 use App\Http\Requests\Api\V1\UpsertProductRequest;
+use Illuminate\Http\Request;
 
-class ProductController
+class ProductController extends ApiController
 {
 
     public function __construct(
-       protected UpsertProductAction $upsertProductAction,
-    ){}
+        protected UpsertProductAction $upsertProductAction,
+    ) {}
 
-    public function index()
+    public function index(Request $request)
     {
-        return ProductsResource::collection(Product::all());
+        $query = Product::query();
+
+        // Define all relationships that can be included
+        $availableRelationships = ['category'];
+
+        foreach ($availableRelationships as $relation) {
+            if ($this->include($relation)) {
+                $query->with($relation);
+            }
+        }
+
+        $products = $query->get();
+
+        return ProductsResource::collection($products);
     }
+
 
     public function show(Product $product)
     {
@@ -38,10 +54,9 @@ class ProductController
     {
         $dto = UpsertProductDto::fromArray($request->validated());
 
-        $product = $this->upsertProductAction->handle( $dto, $product->sku);
+        $product = $this->upsertProductAction->handle($dto, $product->sku);
 
         return new ProductsResource($product);
-        
     }
 
     public function destroy(Product $product)
