@@ -1,22 +1,20 @@
-<?php 
+<?php
 
 namespace App\Actions;
 
 use App\DTOs\UpsertCategoryDto;
-use App\Models\Product;
+use App\Models\Category;
 
 class UpsertCategoryAction
 {
-    public function handle(UpsertCategoryDto $dto): Product
+    public function handle(UpsertCategoryDto $dto, ?int $id = null): Category
     {
-
-        Product::upsert([
-                'name'             => $dto->name,
-                'description'      => $dto->description,
-            ], ['name'], ['description'
-        ]);
-
-        return Product::where('name', trim($dto->name))->firstOrFail();   
-
+        return Category::updateOrCreate(
+            ['id' => $id],
+            [
+                'name' => $dto->name,
+                'description' => $dto->description,
+            ]
+        );
     }
 }

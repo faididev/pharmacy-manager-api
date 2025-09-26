@@ -1,26 +1,34 @@
-<?php 
+<?php
 
 namespace App\Http\Resources\Api\V1;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Http\Request;
 
 class CustomerResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @param  Request  $request
-     * @return array
-     */
-    public function toArray($request)
+    public function toArray($request): array
     {
         return [
             'type' => 'customer',
-            'uuid' => $this->uuid,
+            'id'   => $this->id,
             'attributes' => [
-                'user_id' => $this->user_id,
                 'loyalty_points' => $this->loyalty_points,
+                'createdAt'      => $this->created_at,
+                'updatedAt'      => $this->updated_at,
+            ],
+            'relationships' => [
+                'user' => [
+                    'data' => [
+                        'type' => 'user',
+                        'id'   => $this->user_id,
+                    ],
+                    'links' => [
+                        'self' => route('customers.show', $this->user_id),
+                    ],
+                ],
+            ],
+            'includes' => [
+                'user' => new UserResource($this->whenLoaded('user')),
             ],
         ];
     }

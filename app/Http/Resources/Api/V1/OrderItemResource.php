@@ -1,31 +1,32 @@
-<?php 
+<?php
 
 namespace App\Http\Resources\Api\V1;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Http\Request;
 
 class OrderItemResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @param  Request  $request
-     * @return array
-     */
-    public function toArray($request)
+    public function toArray($request): array
     {
         return [
-            'type' => 'order',
-            'uuid' => $this->uuid,
+            'type' => 'order_item',
+            'id'   => $this->id,
             'attributes' => [
-                'order_id' => $this->order_id,
                 'product_id' => $this->product_id,
-                'quantity' => $this->quantity,
-                'price' => $this->price,
-                'createdAt' => $this->created_at,
-                'updatedAt' => $this->updated_at,
+                'quantity'   => $this->quantity,
+                'price'      => $this->price,
             ],
+            'relationships' => [
+                'product' => [
+                    'data' => [
+                        'type' => 'product',
+                        'id'   => $this->product_id,
+                    ],
+                    'links' => [
+                        'self' => route('products.show', $this->product_id),
+                    ]
+                ]
+            ]
         ];
     }
 }

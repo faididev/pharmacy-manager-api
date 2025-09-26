@@ -3,6 +3,7 @@
 namespace App\DTOs;
 
 use Carbon\Carbon;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 
 class UpsertProductDto
@@ -10,6 +11,7 @@ class UpsertProductDto
     public function __construct(
         public readonly string $name,
         public readonly ?string $description = null,
+        public readonly mixed $image = null,
         public readonly float $price,
         public readonly int $quantity,
         public readonly ?float $total = null,
@@ -23,6 +25,7 @@ class UpsertProductDto
         return new self(
             name: $data['name'],
             description: $data['description'] ?? null,
+            image: $data['image'] ?? null,
             price: $data['price'],
             quantity: $data['quantity'],
             total: $data['total'] ?? null,
@@ -37,6 +40,7 @@ class UpsertProductDto
         return array_filter([
             'name' => $this->name,
             'description' => $this->description,
+            'image' => $this->image,
             'price' => $this->price,
             'quantity' => $this->quantity,
             'total' => $this->total,
