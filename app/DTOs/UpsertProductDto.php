@@ -3,35 +3,31 @@
 namespace App\DTOs;
 
 use Carbon\Carbon;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Str;
 
 class UpsertProductDto
 {
     public function __construct(
         public readonly string $name,
-        public readonly ?string $description = null,
-        public readonly mixed $image = null,
         public readonly float $price,
         public readonly int $quantity,
+        public readonly int $categoryId,
+        public readonly ?string $description = null,
         public readonly ?float $total = null,
         public readonly ?Carbon $manufactureDate = null,
         public readonly ?Carbon $expiryDate = null,
-        public readonly int $categoryId,
     ) {}
 
     public static function fromArray(array $data)
     {
         return new self(
             name: $data['name'],
-            description: $data['description'] ?? null,
-            image: $data['image'] ?? null,
             price: $data['price'],
             quantity: $data['quantity'],
+            categoryId: $data['category_id'],
+            description: $data['description'] ?? null,
             total: $data['total'] ?? null,
             manufactureDate: isset($data['manufacture_date']) ? Carbon::parse($data['manufacture_date']) : null,
             expiryDate: isset($data['expiry_date']) ? Carbon::parse($data['expiry_date']) : null,
-            categoryId: $data['category_id'],
         );
     }
 
@@ -40,7 +36,6 @@ class UpsertProductDto
         return array_filter([
             'name' => $this->name,
             'description' => $this->description,
-            'image' => $this->image,
             'price' => $this->price,
             'quantity' => $this->quantity,
             'total' => $this->total,

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\DTOs\UpsertProductDto;
-use App\Http\Requests\Api\V1\UpdateProductRequest;
 use App\Http\Resources\Api\V1\ProductsResource;
 use App\Models\Product;
 use App\Actions\UpsertProductAction;
@@ -63,7 +62,6 @@ use OpenApi\Annotations as OA;
  *     @OA\Property(property="id", type="integer", example=1),
  *     @OA\Property(property="name", type="string", example="Paracetamol 500mg"),
  *     @OA\Property(property="description", type="string", example="Pain relief medication"),
- *     @OA\Property(property="image", type="string", format="url", example="http://localhost/storage/products/image.jpg"),
  *     @OA\Property(property="price", type="number", format="float", example=5.99),
  *     @OA\Property(property="quantity", type="integer", example=100),
  *     @OA\Property(property="sku", type="string", example="PROD-001"),
@@ -89,17 +87,16 @@ class ProductController extends ApiController
      *     operationId="createProduct",
      *     tags={"Products"},
      *     summary="Create a new product",
-     *     description="Create a new product with optional image upload",
+     *     description="Create a new product",
      *     security={{"bearerAuth":{}}},
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\MediaType(
-     *             mediaType="multipart/form-data",
+     *             mediaType="application/json",
      *             @OA\Schema(
      *                 required={"name", "price", "quantity", "category_id"},
      *                 @OA\Property(property="name", type="string", example="Paracetamol 500mg"),
      *                 @OA\Property(property="description", type="string", example="Pain relief medication"),
-     *                 @OA\Property(property="image", type="string", format="binary", description="Product image file"),
      *                 @OA\Property(property="price", type="number", format="float", example=5.99),
      *                 @OA\Property(property="quantity", type="integer", example=100),
      *                 @OA\Property(property="manufacture_date", type="string", format="date", example="2024-01-15"),
@@ -122,7 +119,7 @@ class ProductController extends ApiController
      *     operationId="updateProduct",
      *     tags={"Products"},
      *     summary="Update a product",
-     *     description="Update an existing product with optional image upload",
+     *     description="Update an existing product",
      *     security={{"bearerAuth":{}}},
      *     @OA\Parameter(
      *         name="product",
@@ -134,11 +131,10 @@ class ProductController extends ApiController
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\MediaType(
-     *             mediaType="multipart/form-data",
+     *             mediaType="application/json",
      *             @OA\Schema(
      *                 @OA\Property(property="name", type="string", example="Paracetamol 500mg"),
      *                 @OA\Property(property="description", type="string", example="Pain relief medication"),
-     *                 @OA\Property(property="image", type="string", format="binary", description="Product image file"),
      *                 @OA\Property(property="price", type="number", format="float", example=5.99),
      *                 @OA\Property(property="quantity", type="integer", example=100),
      *                 @OA\Property(property="manufacture_date", type="string", format="date", example="2024-01-15"),
@@ -193,18 +189,12 @@ class ProductController extends ApiController
 
     public function show(Product $product)
     {
-        dd('here');
         return new ProductsResource($product);
     }
 
     public function store(UpsertProductRequest $request)
     {
         $data = $request->validated();
-
-        // Handle image upload
-        if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image');
-        }
 
         $dto = UpsertProductDto::fromArray($data);
 
@@ -213,14 +203,9 @@ class ProductController extends ApiController
         return new ProductsResource($product);
     }
 
-    public function update(UpdateProductRequest $request, Product $product)
+    public function update(UpsertProductRequest $request, Product $product)
     {
         $data = $request->validated();
-
-        // Handle image upload
-        if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image');
-        }
 
         $dto = UpsertProductDto::fromArray($data);
 
