@@ -69,8 +69,6 @@ This project was presented as a **Soutenance de projet de fin d'étude** (Final 
 - **Search & Filtering** across all resources
 - **Relationship Loading** with include parameters
 - **Error Handling** with detailed error messages
-- **Rate Limiting** for API security
-- **CORS Support** for cross-origin requests
 
 ## Technology Stack
 
@@ -155,16 +153,6 @@ composer run dev
 
 The API will be available at `http://localhost:8000`
 
-## Sample Data
-
-The database seeder provides comprehensive test data for development and testing:
-
-### Users (5 sample users)
-- **Admin User**: admin@pharmacy.com / password123
-- **Manager User**: manager@pharmacy.com / password123
-- **Staff User**: staff@pharmacy.com / password123
-- **Pharmacist User**: pharmacist@pharmacy.com / password123
-- **Test User**: test@pharmacy.com / password123
 
 ### Categories (10 categories)
 - Antibiotics
@@ -279,42 +267,9 @@ DELETE /api/v1/customers/{id}               # Delete customer
 GET    /api/v1/customers/user/{userId}      # Get customers by user
 ```
 
-## Development
-
-### Running Tests
-```bash
-# Run all tests
-php artisan test
-
-# Run specific test suite
-php artisan test --testsuite=Feature
-
-# Run tests with coverage
-php artisan test --coverage
-```
-
-### Code Quality
-```bash
-# Run Laravel Pint (code formatting)
-./vendor/bin/pint
-
-# Run static analysis
-composer run-script static-analysis
-
-# Check code style
-./vendor/bin/pint --test
-```
 
 ### Database Management
 ```bash
-# Create new migration
-php artisan make:migration create_table_name
-
-# Create new model with migration
-php artisan make:model ModelName -m
-
-# Create new controller
-php artisan make:controller Api/V1/ControllerName
 
 # Create seeders
 php artisan make:seeder UserSeeder
@@ -363,11 +318,8 @@ The project includes comprehensive seeders for realistic test data:
 ## Security Features
 
 - **Laravel Sanctum** for API authentication
-- **CSRF Protection** for web routes
-- **Rate Limiting** on API endpoints
 - **Input Validation** with Form Requests
 - **SQL Injection Protection** via Eloquent ORM
-- **XSS Protection** with output escaping
 - **Secure Headers** configuration
 - **Password Hashing** with bcrypt
 
@@ -381,14 +333,6 @@ The project includes comprehensive seeders for realistic test data:
 5. Set up process manager (Supervisor/PM2)
 6. Configure queue workers for background jobs
 
-### Docker Deployment
-```bash
-# Build Docker image
-docker build -t pharmacy-manager-api .
-
-# Run container
-docker run -p 8000:8000 pharmacy-manager-api
-```
 
 ## Contributing
 
