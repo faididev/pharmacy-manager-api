@@ -76,4 +76,32 @@ class CustomerController extends ApiController
         return response()->noContent();
     }
 
+    /**
+     * Get all customers belonging to a specific user
+     */
+    public function getByUser($userId)
+    {
+        $customers = Customer::where('user_id', $userId)
+            ->with('user')
+            ->get();
+        
+        return CustomerResource::collection($customers);
+    }
+
+    /**
+     * Get customer by user ID (simplest approach)
+     */
+    public function getByUserId($userId)
+    {
+        $customer = Customer::where('user_id', $userId)
+            ->with('user')
+            ->first();
+        
+        if (!$customer) {
+            return response()->json(['message' => 'Customer not found'], 404);
+        }
+        
+        return new CustomerResource($customer);
+    }
+
 }

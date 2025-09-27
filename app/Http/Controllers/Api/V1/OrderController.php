@@ -45,7 +45,7 @@ class OrderController extends ApiController
             $query->where('order_date', '<=', $dateTo);
         }
 
-        $orders = $query->paginate($perPage);
+        $orders = $query->with(['items.product', 'customer.user'])->paginate($perPage);
         
         return OrderResource::collection($orders);
     }

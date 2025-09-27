@@ -1,61 +1,414 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Pharmacy Manager API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A comprehensive RESTful API backend for the Pharmacy Manager system built with Laravel 12. This API provides complete inventory management, order processing, customer management, and user authentication services for pharmacy operations.
 
-## About Laravel
+## Project Presentation Details
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This project was presented as a **Soutenance de projet de fin d'étude** (Final Year Project Defense) at:
+- **University:** Université Sidi Mohamed Ben Abdellah
+- **School:** École Nationale des Sciences Appliquées
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Project Title
+**Creation de Gestion de Pharmacy Laravel API + Java Android App**
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Presented by
+- Yassine Faidi
+- Hamza Mekouar
 
-## Learning Laravel
+### Supervised by
+- Mr.S Jamal RIFFI
+- Mr.s LAKHRISSI YOUNES
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Repository
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- **Backend API**: [pharmacy-manager-api](https://github.com/faididev/pharmacy-manager-api)
+- **Frontend App**: [PharmacyManager](https://github.com/faididev/PharmacyManager)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Features
 
-## Laravel Sponsors
+### Authentication & Authorization
+- **Laravel Sanctum** for API token authentication
+- **User Registration** with email validation
+- **Secure Login/Logout** with token management
+- **Password Hashing** using bcrypt
+- **Session Management** with automatic token refresh
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Product Management
+- **CRUD Operations** for products
+- **SKU Generation** with automatic unique identifier creation
+- **Category Association** for product organization
+- **Inventory Tracking** with quantity management
+- **Expiry Date Monitoring** for pharmaceutical products
+- **Price Management** with decimal precision
+- **Search & Filtering** by name, description, SKU, and category
+- **Soft Deletes** for data integrity
 
-### Premium Partners
+### Order Management
+- **Order Creation** with multiple items
+- **Order Status Tracking** (pending, completed, cancelled)
+- **Customer Association** for order history
+- **Real-time Total Calculation** based on current prices
+- **Order Item Management** with quantity and pricing
+- **Date-based Filtering** for order queries
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Customer Management
+- **Customer Profiles** linked to user accounts
+- **Loyalty Points System** for customer retention
+- **Order History Tracking** per customer
+- **User Association** for multi-user pharmacy management
+
+### Category Management
+- **Category CRUD** operations
+- **Product Association** for better organization
+- **Search Functionality** for category management
+
+### API Features
+- **RESTful Design** following REST principles
+- **JSON API Responses** with consistent structure
+- **Pagination Support** for large datasets
+- **Search & Filtering** across all resources
+- **Relationship Loading** with include parameters
+- **Error Handling** with detailed error messages
+- **Rate Limiting** for API security
+- **CORS Support** for cross-origin requests
+
+## Technology Stack
+
+- **Framework**: Laravel 12
+- **PHP Version**: 8.2+
+- **Database**: MySQL (with support for SQLite, PostgreSQL, MariaDB)
+- **Authentication**: Laravel Sanctum
+- **API Documentation**: Swagger/OpenAPI with L5-Swagger
+- **Testing**: PHPUnit with Pest
+- **Code Quality**: Laravel Pint, PHP CS Fixer
+- **Frontend Assets**: Vite with Tailwind CSS
+
+## Prerequisites
+
+- **PHP 8.2** or higher
+- **Composer** (PHP dependency manager)
+- **MySQL 8.0** or higher
+- **Node.js 18+** and **npm** (for frontend assets)
+- **Git** for version control
+
+## Installation
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/faididev/pharmacy-manager-api.git
+cd pharmacy-manager-api
+```
+
+### 2. Install Dependencies
+```bash
+# Install PHP dependencies
+composer install
+
+# Install Node.js dependencies
+npm install
+```
+
+### 3. Environment Configuration
+```bash
+# Copy environment file
+cp .env.example .env
+
+# Generate application key
+php artisan key:generate
+```
+
+### 4. Database Setup
+```bash
+# Create database
+mysql -u root -p
+CREATE DATABASE pharmacy_manager;
+
+# Update .env file with database credentials
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=pharmacy_manager
+DB_USERNAME=root
+DB_PASSWORD=your_password
+
+# Run migrations
+php artisan migrate
+
+# Seed database with sample data
+php artisan db:seed
+
+# Or reset database with fresh data
+php artisan migrate:fresh --seed
+```
+
+### 5. Start the Application
+```bash
+# Start Laravel development server
+php artisan serve
+
+# In another terminal, start Vite for frontend assets
+npm run dev
+
+# Or run both with the dev script
+composer run dev
+```
+
+The API will be available at `http://localhost:8000`
+
+## Sample Data
+
+The database seeder provides comprehensive test data for development and testing:
+
+### Users (5 sample users)
+- **Admin User**: admin@pharmacy.com / password123
+- **Manager User**: manager@pharmacy.com / password123
+- **Staff User**: staff@pharmacy.com / password123
+- **Pharmacist User**: pharmacist@pharmacy.com / password123
+- **Test User**: test@pharmacy.com / password123
+
+### Categories (10 categories)
+- Antibiotics
+- Pain Relief
+- Vitamins & Supplements
+- Cold & Flu
+- Digestive Health
+- Heart & Blood Pressure
+- Diabetes Care
+- Skin Care
+- Eye Care
+- First Aid
+
+### Products (50 sample products)
+- **Realistic pharmaceutical names** (Paracetamol, Ibuprofen, etc.)
+- **Auto-generated SKUs** (SKU-ABC12345 format)
+- **Realistic prices** (0.50 to 150.00 range)
+- **Random quantities** (0-500 units)
+- **Manufacture dates** (last 2 years)
+- **Expiry dates** (1-5 years from manufacture)
+- **Proper category associations**
+
+### Customers (20 sample customers)
+- **Linked to user accounts**
+- **Loyalty points** (0-1000 range)
+- **Realistic names and contact info**
+
+### Orders (30 sample orders)
+- **Various statuses** (pending, completed, cancelled)
+- **Multiple order items** per order
+- **Realistic total amounts**
+- **Date range** (last 6 months)
+- **Customer associations**
+
+### Order Items
+- **Product associations** with current prices
+- **Realistic quantities** (1-10 per item)
+- **Proper total calculations**
+
+### Running Seeders
+```bash
+# Seed all data
+php artisan db:seed
+
+# Seed specific seeder
+php artisan db:seed --class=UserSeeder
+php artisan db:seed --class=CategorySeeder
+php artisan db:seed --class=ProductSeeder
+php artisan db:seed --class=CustomerSeeder
+php artisan db:seed --class=OrderSeeder
+
+# Reset and seed fresh data
+php artisan migrate:fresh --seed
+```
+
+## API Documentation
+
+### Swagger Documentation
+Interactive API documentation is available at:
+- **Development**: `http://localhost:8000/api/documentation`
+- **Production**: `https://yourdomain.com/api/documentation`
+
+### Postman Collection
+A complete Postman collection is included in the repository:
+- **File**: `Pharmacy_Manager_API.postman_collection.json`
+- **Environment**: Configure base URL and authentication tokens
+
+## API Endpoints
+
+### Authentication
+```
+POST   /api/auth/login          # User login
+POST   /api/auth/register       # User registration
+GET    /api/auth/user           # Get current user
+POST   /api/auth/logout         # User logout
+```
+
+### Products
+```
+GET    /api/v1/products         # List products
+POST   /api/v1/products         # Create product
+GET    /api/v1/products/{id}    # Get product details
+PUT    /api/v1/products/{id}    # Update product
+DELETE /api/v1/products/{id}    # Delete product
+```
+
+### Categories
+```
+GET    /api/v1/categories       # List categories
+POST   /api/v1/categories       # Create category
+GET    /api/v1/categories/{id}  # Get category details
+PUT    /api/v1/categories/{id}  # Update category
+DELETE /api/v1/categories/{id}  # Delete category
+```
+
+### Orders
+```
+GET    /api/v1/orders           # List orders
+POST   /api/v1/orders           # Create order
+GET    /api/v1/orders/{id}      # Get order details
+PUT    /api/v1/orders/{id}      # Update order
+DELETE /api/v1/orders/{id}      # Delete order
+```
+
+### Customers
+```
+GET    /api/v1/customers                    # List customers
+POST   /api/v1/customers                    # Create customer
+GET    /api/v1/customers/{id}               # Get customer details
+PUT    /api/v1/customers/{id}               # Update customer
+DELETE /api/v1/customers/{id}               # Delete customer
+GET    /api/v1/customers/user/{userId}      # Get customers by user
+```
+
+## Development
+
+### Running Tests
+```bash
+# Run all tests
+php artisan test
+
+# Run specific test suite
+php artisan test --testsuite=Feature
+
+# Run tests with coverage
+php artisan test --coverage
+```
+
+### Code Quality
+```bash
+# Run Laravel Pint (code formatting)
+./vendor/bin/pint
+
+# Run static analysis
+composer run-script static-analysis
+
+# Check code style
+./vendor/bin/pint --test
+```
+
+### Database Management
+```bash
+# Create new migration
+php artisan make:migration create_table_name
+
+# Create new model with migration
+php artisan make:model ModelName -m
+
+# Create new controller
+php artisan make:controller Api/V1/ControllerName
+
+# Create seeders
+php artisan make:seeder UserSeeder
+php artisan make:seeder CategorySeeder
+php artisan make:seeder ProductSeeder
+php artisan make:seeder CustomerSeeder
+php artisan make:seeder OrderSeeder
+
+# Rollback migrations
+php artisan migrate:rollback
+
+# Reset database
+php artisan migrate:fresh --seed
+```
+
+### Creating Sample Data Seeders
+The project includes comprehensive seeders for realistic test data:
+
+#### UserSeeder
+- Creates 5 different user accounts with various roles
+- Includes admin, manager, staff, pharmacist, and test users
+- All users have the password: `password123`
+
+#### CategorySeeder
+- Creates 10 pharmaceutical categories
+- Includes realistic category names and descriptions
+- Covers major medicine types (Antibiotics, Pain Relief, etc.)
+
+#### ProductSeeder
+- Creates 50 sample products with realistic data
+- Auto-generates unique SKUs
+- Sets realistic prices, quantities, and expiry dates
+- Associates products with appropriate categories
+
+#### CustomerSeeder
+- Creates 20 sample customers
+- Links customers to user accounts
+- Assigns random loyalty points (0-1000)
+
+#### OrderSeeder
+- Creates 30 sample orders with various statuses
+- Generates realistic order items with quantities
+- Calculates proper total amounts
+- Distributes orders across different customers and dates
+
+## Security Features
+
+- **Laravel Sanctum** for API authentication
+- **CSRF Protection** for web routes
+- **Rate Limiting** on API endpoints
+- **Input Validation** with Form Requests
+- **SQL Injection Protection** via Eloquent ORM
+- **XSS Protection** with output escaping
+- **Secure Headers** configuration
+- **Password Hashing** with bcrypt
+
+## Deployment
+
+### Production Environment
+1. Set `APP_ENV=production` in `.env`
+2. Configure production database
+3. Set up web server (Apache/Nginx)
+4. Configure SSL certificates
+5. Set up process manager (Supervisor/PM2)
+6. Configure queue workers for background jobs
+
+### Docker Deployment
+```bash
+# Build Docker image
+docker build -t pharmacy-manager-api .
+
+# Run container
+docker run -p 8000:8000 pharmacy-manager-api
+```
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Support
+
+For support and questions:
+- Create an issue in the repository
+- Check the API documentation at `/api/documentation`
+- Review the Laravel documentation
+
+---
+
+**Note**: This API is designed for educational and small business use. For production deployment in large-scale environments, additional security measures, performance optimizations, and scalability considerations should be implemented.

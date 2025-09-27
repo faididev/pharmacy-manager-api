@@ -12,13 +12,20 @@ class UpsertOrderAction
     public function handle(UpsertOrderDto $dto, ?int $id = null): Order
     {
         return DB::transaction(function () use ($dto, $id) {
+            // Calculate total amount with proper validation
+            $totalAmount = 0;
+            foreach ($dto->items as $item) {
+                $itemTotal = $item['price'] * $item['quantity'];
+                $totalAmount += $itemTotal;
+            }
+
             $order = Order::updateOrCreate(
                 ['id' => $id],
                 [
                     'customer_id'  => $dto->customerId,
-                    'order_date'   => $dto->orderDate?->toDateString(),
+                    'order_date'   => $dto->orderDate?->toDateString() ?? now()->toDateString(),
                     'status'       => $dto->status,
-                    'total_amount' => collect($dto->items)->sum(fn($i) => $i['price'] * $i['quantity']),
+                    'total_amount' => round($totalAmount, 2), // Round to 2 decimal places
                 ]
             );
 
@@ -27,6 +34,7 @@ class UpsertOrderAction
                 $order->items()->delete();
             }
 
+            // Create order items
             foreach ($dto->items as $item) {
                 $order->items()->create([
                     'product_id' => $item['product_id'],
@@ -35,7 +43,7 @@ class UpsertOrderAction
                 ]);
             }
 
-            return $order->load(['customer', 'items.product']);
+            return $order->load(['customer.user', 'items.product']);
         });
     }
 }
