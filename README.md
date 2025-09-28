@@ -12,8 +12,8 @@ This project was presented as a **Soutenance de projet de fin d'étude** (Final 
 **Creation de Gestion de Pharmacy Laravel API + Java Android App**
 
 ### Presented by
-- Yassine Faidi
-- Hamza Mekouar
+- Yassine Faidi : [https://github.com/faididev]
+- Hamza Mekouar : [https://github.com/MekouarTech]
 
 ### Supervised by
 - Mr.S Jamal RIFFI
